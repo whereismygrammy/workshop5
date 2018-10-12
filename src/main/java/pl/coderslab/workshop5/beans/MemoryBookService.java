@@ -1,5 +1,6 @@
 package pl.coderslab.workshop5.beans;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import pl.coderslab.workshop5.model.Book;
 
@@ -7,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class MemoryBookService {
+@Primary
+public class MemoryBookService implements BookService {
 
     private static int NEXT_ID = 1;
     private List<Book> list;
@@ -23,14 +25,17 @@ public class MemoryBookService {
                 "Cay Horstmann, Gary Cornell", "Helion", "programming"));
     }
 
+    @Override
     public List<Book> getList() {
         return list;
     }
 
+    @Override
     public void setList(List<Book> list) {
         this.list = list;
     }
 
+    @Override
     public void deleteById(Long id) {
         for (int i = 0; i < this.list.size(); i++) {
             if (this.list.get(i).getId() == id) {
@@ -40,6 +45,7 @@ public class MemoryBookService {
         }
     }
 
+    @Override
     public Book getById(Long id) {
         for (int i = 0; i < this.list.size(); i++) {
             if (this.list.get(i).getId() == id) {
@@ -49,8 +55,19 @@ public class MemoryBookService {
         return null;
     }
 
+    @Override
     public void insertBook(Book book) {
         this.list.add(book);
         book.setId(NEXT_ID++);
+    }
+
+    @Override
+    public void uppdateBook(Book book) {
+        for (int i = 0; i < this.list.size(); i++) {
+            if (this.list.get(i).getId() == book.getId()) {
+                this.list.set(i, book);
+                break;
+            }
+        }
     }
 }

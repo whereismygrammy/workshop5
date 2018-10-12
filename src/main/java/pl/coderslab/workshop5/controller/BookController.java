@@ -3,7 +3,7 @@ package pl.coderslab.workshop5.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.workshop5.beans.MemoryBookService;
+import pl.coderslab.workshop5.beans.BookService;
 import pl.coderslab.workshop5.model.Book;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
 public class BookController {
 
     @Autowired
-    private MemoryBookService memoryBookService;
+    private BookService memoryBookService;
 
     @GetMapping("/hello")
     public String hello() {
@@ -48,6 +48,12 @@ public class BookController {
     public Book addBook(@RequestBody Book book) {
         this.memoryBookService.insertBook(book);
         return book;
+    }
+
+    @PutMapping("/{id}")
+    public String updateBook(@PathVariable long id, @RequestBody Book book) {
+        this.memoryBookService.uppdateBook(book);
+        return "{\"status\" : \"ok\"}";
     }
 
 
