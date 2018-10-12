@@ -8,15 +8,18 @@ import java.util.List;
 
 @Service
 public class MemoryBookService {
+
+    private static int NEXT_ID = 1;
     private List<Book> list;
 
     public MemoryBookService() {
         list = new ArrayList<>();
-        list.add(new Book(1L, "9788324631766", "Thinking in Java", "Bruce Eckel",
+
+        this.insertBook(new Book(1L, "9788324631766", "Thinking in Java", "Bruce Eckel",
                 "Helion", "programming"));
-        list.add(new Book(2L, "9788324627738", "Rusz glowa, Java.",
+        this.insertBook(new Book(2L, "9788324627738", "Rusz glowa, Java.",
                 "Sierra Kathy, Bates Bert", "Helion", "programming"));
-        list.add(new Book(3L, "9780130819338", "Java 2. Podstawy",
+        this.insertBook(new Book(3L, "9780130819338", "Java 2. Podstawy",
                 "Cay Horstmann, Gary Cornell", "Helion", "programming"));
     }
 
@@ -44,5 +47,10 @@ public class MemoryBookService {
             }
         }
         return null;
+    }
+
+    public void insertBook(Book book) {
+        this.list.add(book);
+        book.setId(NEXT_ID++);
     }
 }

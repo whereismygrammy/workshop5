@@ -27,21 +27,28 @@ public class BookController {
     }
 
     @GetMapping("")
-    public List<Book> getBookList(){
+    public List<Book> getBookList() {
         return memoryBookService.getList();
     }
 
     @DeleteMapping("/{id}")
-    public String deleteBook(@PathVariable long id){
+    public String deleteBook(@PathVariable long id) {
         this.memoryBookService.deleteById(id);
         return "{\"status\" : \"ok\"}";
 
     }
 
     @GetMapping("/{id}")
-    public Book getBookById(@PathVariable long id){
+    public Book getBookById(@PathVariable long id) {
         return this.memoryBookService.getById(id);
 
     }
+
+    @PostMapping("")
+    public Book addBook(@RequestBody Book book) {
+        this.memoryBookService.insertBook(book);
+        return book;
+    }
+
 
 }
